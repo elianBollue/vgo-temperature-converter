@@ -25,13 +25,15 @@ namespace View
             InitializeComponent();
         }
 
-        private void ConvertToCelsius(object sender, RoutedEventArgs e)
+        private void ConvertCelsius(object sender, RoutedEventArgs e)
         {
             try
             {
-                var fahrenheit = double.Parse(textBox.Text);
-                var celsius = (fahrenheit - 32) / 1.8;
-                celsiusBox.Text = celsius.ToString();
+                var celsius = double.Parse(celsiusBox.Text);
+                var fahrenheit = (celsius * 1.8) + 32;
+                var kelvin = celsius + 273.15;
+                FahrenBox.Text = fahrenheit.ToString();
+                kelvinBox.Text = kelvin.ToString();
             }
             catch
             {
@@ -39,23 +41,36 @@ namespace View
             }
         }
 
-        private void ConvertToFahrenheit(object sender, RoutedEventArgs e)
+        private void ConvertFahrenheit(object sender, RoutedEventArgs e)
         {
             try
             {
-                var celsius = double.Parse(celsiusBox.Text);
-                var fahrenheit = (celsius * 1.8) + 32;
-                textBox.Text = fahrenheit.ToString();
+                var fahrenheit = double.Parse(FahrenBox.Text);
+                var celsius = (fahrenheit - 32) / 1.8;
+                var kelvin = celsius + 273.15;
+                celsiusBox.Text = celsius.ToString();
+                kelvinBox.Text = kelvin.ToString();
             }
             catch
             {
-                textBox.Text = "no strings allowed";
+                FahrenBox.Text = "no strings allowed";
             }
         }
 
         private void ConvertKelvin(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                var kelvin = double.Parse(kelvinBox.Text);
+                var celsius = kelvin - 273.15;
+                var fahrenheit = (celsius * 1.8) + 32;
+                celsiusBox.Text = celsius.ToString();
+                FahrenBox.Text = fahrenheit.ToString();
+            }
+            catch
+            {
+                kelvinBox.Text = "no strings allowed";
+            }
         }
     }
 }
