@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,53 +25,22 @@ namespace View
         {
             InitializeComponent();
         }
-
-        private void ConvertCelsius(object sender, RoutedEventArgs e)
+    }
+    public class TemperatureConverter : IValueConverter
+    {
+        public ITemperatureScale TemperatureScale { get; set; }
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            try
-            {
-                var celsius = double.Parse(celsiusBox.Text);
-                var fahrenheit = (celsius * 1.8) + 32;
-                var kelvin = celsius + 273.15;
-                FahrenBox.Text = fahrenheit.ToString();
-                kelvinBox.Text = kelvin.ToString();
-            }
-            catch
-            {
-                celsiusBox.Text = "no strings allowed";
-            }
+            double kelvin = (double)value;
+
+            return TemperatureScale.ConvertFromKelvin(kelvin).ToString();
         }
 
-        private void ConvertFahrenheit(object sender, RoutedEventArgs e)
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            try
-            {
-                var fahrenheit = double.Parse(FahrenBox.Text);
-                var celsius = (fahrenheit - 32) / 1.8;
-                var kelvin = celsius + 273.15;
-                celsiusBox.Text = celsius.ToString();
-                kelvinBox.Text = kelvin.ToString();
-            }
-            catch
-            {
-                FahrenBox.Text = "no strings allowed";
-            }
-        }
+            double temperature = double.Parse((string)value);
 
-        private void ConvertKelvin(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                var kelvin = double.Parse(kelvinBox.Text);
-                var celsius = kelvin - 273.15;
-                var fahrenheit = (celsius * 1.8) + 32;
-                celsiusBox.Text = celsius.ToString();
-                FahrenBox.Text = fahrenheit.ToString();
-            }
-            catch
-            {
-                kelvinBox.Text = "no strings allowed";
-            }
+            return TemperatureScale.ConvertToKelvin(temperature);
         }
     }
 }
