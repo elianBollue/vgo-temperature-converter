@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +26,8 @@ namespace View
         public MainWindow()
         {
             InitializeComponent();
+
+            this.DataContext = new ConvertViewModel(); //werkt per control, nu datacontext voor hele window gezet, controls inheriten van parents
         }
     }
     public class TemperatureConverter : IValueConverter
