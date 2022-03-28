@@ -35,24 +35,7 @@
         <ItemsControl ItemsSource="{Binding Scales}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="32px"/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition Width="32px"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <TextBlock Text="{Binding Name}" Style="{StaticResource labelStyle}" Grid.Row="0" Grid.ColumnSpan="3"/>
-                        <Button Content="-" Command="{Binding Decrement}" Grid.Row="1" Grid.Column="0" Style="{StaticResource buttonStyle}"/>
-                        <TextBox x:Name="celsiusBox" Text="{Binding
-                                                                Path=Temperature.Value,
-                                                                UpdateSourceTrigger=PropertyChanged}"
-                                 Style="{StaticResource textBoxStyle}" Grid.Row="1" Grid.Column="1"/>
-                        <Button Content="+" Command="{Binding Increment}" Grid.Row="1" Grid.Column="2" Style="{StaticResource buttonStyle}"/>
-                    </Grid>
+                    <local:TemperatureScaleControl Header="{Binding Name}" Value="{Binding Temperature.Value}"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
