@@ -13,8 +13,8 @@
             <Setter Property="Background">
                 <Setter.Value>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                        <GradientStop Color="Gray" Offset="0"/>
-                        <GradientStop Color="White" Offset="1"/>
+                        <GradientStop Color="Blue" Offset="0"/>
+                        <GradientStop Color="Black" Offset="1"/>
                     </LinearGradientBrush>
                 </Setter.Value>
             </Setter>
@@ -37,17 +37,21 @@
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="32px"/>
                             <ColumnDefinition/>
+                            <ColumnDefinition Width="32px"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <TextBlock Text="{Binding Name}" Style="{StaticResource labelStyle}" Grid.Row="0"/>
+                        <TextBlock Text="{Binding Name}" Style="{StaticResource labelStyle}" Grid.Row="0" Grid.ColumnSpan="3"/>
+                        <Button Content="-" Command="{Binding Decrement}" Grid.Row="1" Grid.Column="0" Style="{StaticResource buttonStyle}"/>
                         <TextBox x:Name="celsiusBox" Text="{Binding
-                                                                Path=Temperature,
+                                                                Path=Temperature.Value,
                                                                 UpdateSourceTrigger=PropertyChanged}"
-                                 Style="{StaticResource textBoxStyle}" Grid.Row="1"/>
+                                 Style="{StaticResource textBoxStyle}" Grid.Row="1" Grid.Column="1"/>
+                        <Button Content="+" Command="{Binding Increment}" Grid.Row="1" Grid.Column="2" Style="{StaticResource buttonStyle}"/>
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
